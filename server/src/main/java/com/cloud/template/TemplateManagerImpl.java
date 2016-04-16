@@ -271,17 +271,10 @@ public class TemplateManagerImpl extends ManagerBase implements TemplateManager,
 
   @Inject
   private StorageCacheManager cacheMgr;
-  @Inject
-  private EndPointSelector selector;
 
   private TemplateAdapter getAdapter(HypervisorType type) {
     TemplateAdapter adapter = null;
-    if (type == HypervisorType.BareMetal) {
-      adapter = AdapterBase.getAdapterByName(_adapters, TemplateAdapterType.BareMetal.getName());
-    } else {
-      // see HypervisorTemplateAdapter
-      adapter = AdapterBase.getAdapterByName(_adapters, TemplateAdapterType.Hypervisor.getName());
-    }
+    adapter = AdapterBase.getAdapterByName(_adapters, TemplateAdapterType.Hypervisor.getName());
 
     if (adapter == null) {
       throw new CloudRuntimeException("Cannot find template adapter for " + type.toString());

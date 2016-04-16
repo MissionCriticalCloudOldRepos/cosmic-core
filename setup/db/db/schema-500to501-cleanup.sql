@@ -42,3 +42,10 @@ DROP TABLE IF EXISTS `cloud`.`port_profile`;
 
 # Remove VMware related column on physical_network_traffic_types table
 ALTER TABLE `cloud`.`physical_network_traffic_types` DROP COLUMN `vmware_network_label`; 
+
+# Remove Barmetal configuration
+DELETE FROM `cloud`.`configuration` WHERE name = 'external.baremetal.system.url';
+DELETE FROM `cloud`.`configuration` WHERE name = 'external.baremetal.resource.classname';
+DELETE FROM `cloud`.`configuration` WHERE name = 'enable.baremetal.securitygroup.agent.echo';
+DELETE FROM `cloud`.`configuration` WHERE name = 'interval.baremetal.securitygroup.agent.echo';
+DELETE FROM `cloud`.`configuration` WHERE name = 'timeout.baremetal.securitygroup.agent.echo';

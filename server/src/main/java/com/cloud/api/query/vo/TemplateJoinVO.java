@@ -16,6 +16,8 @@
 // under the License.
 package com.cloud.api.query.vo;
 
+import org.apache.cloudstack.engine.subsystem.api.storage.ObjectInDataStoreStateMachine;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,8 +28,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.apache.cloudstack.engine.subsystem.api.storage.ObjectInDataStoreStateMachine;
 
 import com.cloud.hypervisor.Hypervisor.HypervisorType;
 import com.cloud.server.ResourceTag.ResourceObjectType;
@@ -42,509 +42,509 @@ import com.cloud.utils.db.GenericDao;
 @Table(name = "template_view")
 public class TemplateJoinVO extends BaseViewVO implements ControlledViewEntity {
 
-    @Id
-    @Column(name = "id")
-    private long id;
+  @Id
+  @Column(name = "id")
+  private long id;
 
-    @Column(name = "uuid")
-    private String uuid;
+  @Column(name = "uuid")
+  private String uuid;
 
-    @Column(name = "unique_name")
-    private String uniqueName;
+  @Column(name = "unique_name")
+  private String uniqueName;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "format")
-    private Storage.ImageFormat format;
+  @Column(name = "format")
+  private Storage.ImageFormat format;
 
-    @Column(name = "public")
-    private boolean publicTemplate = true;
+  @Column(name = "public")
+  private final boolean publicTemplate = true;
 
-    @Column(name = "featured")
-    private boolean featured;
+  @Column(name = "featured")
+  private boolean featured;
 
-    @Column(name = "type")
-    private Storage.TemplateType templateType;
+  @Column(name = "type")
+  private Storage.TemplateType templateType;
 
-    @Column(name = "url")
-    private String url = null;
+  @Column(name = "url")
+  private final String url = null;
 
-    @Column(name = "hvm")
-    private boolean requiresHvm;
+  @Column(name = "hvm")
+  private boolean requiresHvm;
 
-    @Column(name = "bits")
-    private int bits;
+  @Column(name = "bits")
+  private int bits;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = GenericDao.CREATED_COLUMN)
-    private Date created = null;
+  @Temporal(value = TemporalType.TIMESTAMP)
+  @Column(name = GenericDao.CREATED_COLUMN)
+  private final Date created = null;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "created_on_store")
-    private Date createdOnStore = null;
+  @Temporal(value = TemporalType.TIMESTAMP)
+  @Column(name = "created_on_store")
+  private final Date createdOnStore = null;
 
-    @Column(name = GenericDao.REMOVED_COLUMN)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date removed;
+  @Column(name = GenericDao.REMOVED_COLUMN)
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date removed;
 
-    @Column(name = "checksum")
-    private String checksum;
+  @Column(name = "checksum")
+  private String checksum;
 
-    @Column(name = "display_text", length = 4096)
-    private String displayText;
+  @Column(name = "display_text", length = 4096)
+  private String displayText;
 
-    @Column(name = "enable_password")
-    private boolean enablePassword;
+  @Column(name = "enable_password")
+  private boolean enablePassword;
 
-    @Column(name = "dynamically_scalable")
-    private boolean dynamicallyScalable;
+  @Column(name = "dynamically_scalable")
+  private boolean dynamicallyScalable;
 
-    @Column(name = "guest_os_id")
-    private long guestOSId;
+  @Column(name = "guest_os_id")
+  private long guestOSId;
 
-    @Column(name = "guest_os_uuid")
-    private String guestOSUuid;
+  @Column(name = "guest_os_uuid")
+  private String guestOSUuid;
 
-    @Column(name = "guest_os_name")
-    private String guestOSName;
+  @Column(name = "guest_os_name")
+  private String guestOSName;
 
-    @Column(name = "bootable")
-    private boolean bootable = true;
+  @Column(name = "bootable")
+  private final boolean bootable = true;
 
-    @Column(name = "prepopulate")
-    private boolean prepopulate = false;
+  @Column(name = "prepopulate")
+  private final boolean prepopulate = false;
 
-    @Column(name = "cross_zones")
-    private boolean crossZones = false;
+  @Column(name = "cross_zones")
+  private final boolean crossZones = false;
 
-    @Column(name = "hypervisor_type")
-    @Enumerated(value = EnumType.STRING)
-    private HypervisorType hypervisorType;
+  @Column(name = "hypervisor_type")
+  @Enumerated(value = EnumType.STRING)
+  private HypervisorType hypervisorType;
 
-    @Column(name = "extractable")
-    private boolean extractable = true;
+  @Column(name = "extractable")
+  private final boolean extractable = true;
 
-    @Column(name = "source_template_id")
-    private Long sourceTemplateId;
+  @Column(name = "source_template_id")
+  private Long sourceTemplateId;
 
-    @Column(name = "source_template_uuid")
-    private String sourceTemplateUuid;
+  @Column(name = "source_template_uuid")
+  private String sourceTemplateUuid;
 
-    @Column(name = "template_tag")
-    private String templateTag;
+  @Column(name = "template_tag")
+  private String templateTag;
 
-    @Column(name = "sort_key")
-    private int sortKey;
+  @Column(name = "sort_key")
+  private int sortKey;
 
-    @Column(name = "enable_sshkey")
-    private boolean enableSshKey;
+  @Column(name = "enable_sshkey")
+  private boolean enableSshKey;
 
-    @Column(name = "account_id")
-    private long accountId;
+  @Column(name = "account_id")
+  private long accountId;
 
-    @Column(name = "account_uuid")
-    private String accountUuid;
+  @Column(name = "account_uuid")
+  private String accountUuid;
 
-    @Column(name = "account_name")
-    private String accountName = null;
+  @Column(name = "account_name")
+  private final String accountName = null;
 
-    @Column(name = "account_type")
-    private short accountType;
+  @Column(name = "account_type")
+  private short accountType;
 
-    @Column(name = "domain_id")
-    private long domainId;
+  @Column(name = "domain_id")
+  private long domainId;
 
-    @Column(name = "domain_uuid")
-    private String domainUuid;
+  @Column(name = "domain_uuid")
+  private String domainUuid;
 
-    @Column(name = "domain_name")
-    private String domainName = null;
+  @Column(name = "domain_name")
+  private final String domainName = null;
 
-    @Column(name = "domain_path")
-    private String domainPath = null;
+  @Column(name = "domain_path")
+  private final String domainPath = null;
 
-    @Column(name = "project_id")
-    private long projectId;
+  @Column(name = "project_id")
+  private long projectId;
 
-    @Column(name = "project_uuid")
-    private String projectUuid;
+  @Column(name = "project_uuid")
+  private String projectUuid;
 
-    @Column(name = "project_name")
-    private String projectName;
+  @Column(name = "project_name")
+  private String projectName;
 
-    @Column(name = "data_center_id")
-    private long dataCenterId;
+  @Column(name = "data_center_id")
+  private long dataCenterId;
 
-    @Column(name = "data_center_uuid")
-    private String dataCenterUuid;
+  @Column(name = "data_center_uuid")
+  private String dataCenterUuid;
 
-    @Column(name = "data_center_name")
-    private String dataCenterName;
+  @Column(name = "data_center_name")
+  private String dataCenterName;
 
-    @Column(name = "store_scope")
-    @Enumerated(value = EnumType.STRING)
-    private ScopeType dataStoreScope;
+  @Column(name = "store_scope")
+  @Enumerated(value = EnumType.STRING)
+  private ScopeType dataStoreScope;
 
-    @Column(name = "store_id")
-    private Long dataStoreId; // this can be null for baremetal templates
+  @Column(name = "store_id")
+  private Long dataStoreId;
 
-    @Column(name = "download_state")
-    @Enumerated(EnumType.STRING)
-    private Status downloadState;
+  @Column(name = "download_state")
+  @Enumerated(EnumType.STRING)
+  private Status downloadState;
 
-    @Column(name = "download_pct")
-    private int downloadPercent;
+  @Column(name = "download_pct")
+  private int downloadPercent;
 
-    @Column(name = "error_str")
-    private String errorString;
+  @Column(name = "error_str")
+  private String errorString;
 
-    @Column(name = "size")
-    private long size;
+  @Column(name = "size")
+  private long size;
 
-    @Column(name = "template_state")
-    @Enumerated(EnumType.STRING)
-    private State templateState;
+  @Column(name = "template_state")
+  @Enumerated(EnumType.STRING)
+  private State templateState;
 
-    @Column(name = "destroyed")
-    boolean destroyed = false;
+  @Column(name = "destroyed")
+  boolean destroyed = false;
 
-    @Column(name = "lp_account_id")
-    private Long sharedAccountId;
+  @Column(name = "lp_account_id")
+  private Long sharedAccountId;
 
-    @Column(name = "detail_name")
-    private String detailName;
+  @Column(name = "detail_name")
+  private String detailName;
 
-    @Column(name = "detail_value")
-    private String detailValue;
+  @Column(name = "detail_value")
+  private String detailValue;
 
-    @Column(name = "tag_id")
-    private long tagId;
+  @Column(name = "tag_id")
+  private long tagId;
 
-    @Column(name = "tag_uuid")
-    private String tagUuid;
+  @Column(name = "tag_uuid")
+  private String tagUuid;
 
-    @Column(name = "tag_key")
-    private String tagKey;
+  @Column(name = "tag_key")
+  private String tagKey;
 
-    @Column(name = "tag_value")
-    private String tagValue;
+  @Column(name = "tag_value")
+  private String tagValue;
 
-    @Column(name = "tag_domain_id")
-    private long tagDomainId;
+  @Column(name = "tag_domain_id")
+  private long tagDomainId;
 
-    @Column(name = "tag_account_id")
-    private long tagAccountId;
+  @Column(name = "tag_account_id")
+  private long tagAccountId;
 
-    @Column(name = "tag_resource_id")
-    private long tagResourceId;
+  @Column(name = "tag_resource_id")
+  private long tagResourceId;
 
-    @Column(name = "tag_resource_uuid")
-    private String tagResourceUuid;
+  @Column(name = "tag_resource_uuid")
+  private String tagResourceUuid;
 
-    @Column(name = "tag_resource_type")
-    @Enumerated(value = EnumType.STRING)
-    private ResourceObjectType tagResourceType;
+  @Column(name = "tag_resource_type")
+  @Enumerated(value = EnumType.STRING)
+  private ResourceObjectType tagResourceType;
 
-    @Column(name = "tag_customer")
-    private String tagCustomer;
+  @Column(name = "tag_customer")
+  private String tagCustomer;
 
-    @Column(name = "state")
-    @Enumerated(EnumType.STRING)
-    ObjectInDataStoreStateMachine.State state;
+  @Column(name = "state")
+  @Enumerated(EnumType.STRING)
+  ObjectInDataStoreStateMachine.State state;
 
-    @Column(name = "temp_zone_pair")
-    private String tempZonePair; // represent a distinct (templateId, data_center_id) pair
+  @Column(name = "temp_zone_pair")
+  private String tempZonePair; // represent a distinct (templateId, data_center_id) pair
 
-    public TemplateJoinVO() {
-    }
+  public TemplateJoinVO() {
+  }
 
-    @Override
-    public long getId() {
-        return id;
-    }
+  @Override
+  public long getId() {
+    return id;
+  }
 
-    @Override
-    public String getUuid() {
-        return uuid;
-    }
+  @Override
+  public String getUuid() {
+    return uuid;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public Date getCreated() {
-        return created;
-    }
+  public Date getCreated() {
+    return created;
+  }
 
-    public Date getRemoved() {
-        return removed;
-    }
+  public Date getRemoved() {
+    return removed;
+  }
 
-    @Override
-    public long getAccountId() {
-        return accountId;
-    }
+  @Override
+  public long getAccountId() {
+    return accountId;
+  }
 
-    @Override
-    public String getAccountUuid() {
-        return accountUuid;
-    }
+  @Override
+  public String getAccountUuid() {
+    return accountUuid;
+  }
 
-    @Override
-    public String getAccountName() {
-        return accountName;
-    }
+  @Override
+  public String getAccountName() {
+    return accountName;
+  }
 
-    @Override
-    public short getAccountType() {
-        return accountType;
-    }
+  @Override
+  public short getAccountType() {
+    return accountType;
+  }
 
-    @Override
-    public long getDomainId() {
-        return domainId;
-    }
+  @Override
+  public long getDomainId() {
+    return domainId;
+  }
 
-    @Override
-    public String getDomainUuid() {
-        return domainUuid;
-    }
+  @Override
+  public String getDomainUuid() {
+    return domainUuid;
+  }
 
-    @Override
-    public String getDomainName() {
-        return domainName;
-    }
+  @Override
+  public String getDomainName() {
+    return domainName;
+  }
 
-    @Override
-    public String getDomainPath() {
-        return domainPath;
-    }
+  @Override
+  public String getDomainPath() {
+    return domainPath;
+  }
 
-    public long getProjectId() {
-        return projectId;
-    }
+  public long getProjectId() {
+    return projectId;
+  }
 
-    @Override
-    public String getProjectUuid() {
-        return projectUuid;
-    }
+  @Override
+  public String getProjectUuid() {
+    return projectUuid;
+  }
 
-    @Override
-    public String getProjectName() {
-        return projectName;
-    }
+  @Override
+  public String getProjectName() {
+    return projectName;
+  }
 
-    public boolean isExtractable() {
-        return extractable;
-    }
+  public boolean isExtractable() {
+    return extractable;
+  }
 
-    public Storage.TemplateType getTemplateType() {
-        return templateType;
-    }
+  public Storage.TemplateType getTemplateType() {
+    return templateType;
+  }
 
-    public long getTagId() {
-        return tagId;
-    }
+  public long getTagId() {
+    return tagId;
+  }
 
-    public String getTagUuid() {
-        return tagUuid;
-    }
+  public String getTagUuid() {
+    return tagUuid;
+  }
 
-    public String getTagKey() {
-        return tagKey;
-    }
+  public String getTagKey() {
+    return tagKey;
+  }
 
-    public String getTagValue() {
-        return tagValue;
-    }
+  public String getTagValue() {
+    return tagValue;
+  }
 
-    public long getTagDomainId() {
-        return tagDomainId;
-    }
+  public long getTagDomainId() {
+    return tagDomainId;
+  }
 
-    public long getTagAccountId() {
-        return tagAccountId;
-    }
+  public long getTagAccountId() {
+    return tagAccountId;
+  }
 
-    public long getTagResourceId() {
-        return tagResourceId;
-    }
+  public long getTagResourceId() {
+    return tagResourceId;
+  }
 
-    public String getTagResourceUuid() {
-        return tagResourceUuid;
-    }
+  public String getTagResourceUuid() {
+    return tagResourceUuid;
+  }
 
-    public ResourceObjectType getTagResourceType() {
-        return tagResourceType;
-    }
+  public ResourceObjectType getTagResourceType() {
+    return tagResourceType;
+  }
 
-    public String getTagCustomer() {
-        return tagCustomer;
-    }
+  public String getTagCustomer() {
+    return tagCustomer;
+  }
 
-    public long getDataCenterId() {
-        return dataCenterId;
-    }
+  public long getDataCenterId() {
+    return dataCenterId;
+  }
 
-    public String getDataCenterUuid() {
-        return dataCenterUuid;
-    }
+  public String getDataCenterUuid() {
+    return dataCenterUuid;
+  }
 
-    public String getDataCenterName() {
-        return dataCenterName;
-    }
+  public String getDataCenterName() {
+    return dataCenterName;
+  }
 
-    public String getUniqueName() {
-        return uniqueName;
-    }
+  public String getUniqueName() {
+    return uniqueName;
+  }
 
-    public boolean isPublicTemplate() {
-        return publicTemplate;
-    }
+  public boolean isPublicTemplate() {
+    return publicTemplate;
+  }
 
-    public boolean isFeatured() {
-        return featured;
-    }
+  public boolean isFeatured() {
+    return featured;
+  }
 
-    public String getUrl() {
-        return url;
-    }
+  public String getUrl() {
+    return url;
+  }
 
-    public boolean isRequiresHvm() {
-        return requiresHvm;
-    }
+  public boolean isRequiresHvm() {
+    return requiresHvm;
+  }
 
-    public int getBits() {
-        return bits;
-    }
+  public int getBits() {
+    return bits;
+  }
 
-    public String getChecksum() {
-        return checksum;
-    }
+  public String getChecksum() {
+    return checksum;
+  }
 
-    public String getDisplayText() {
-        return displayText;
-    }
+  public String getDisplayText() {
+    return displayText;
+  }
 
-    public boolean isEnablePassword() {
-        return enablePassword;
-    }
+  public boolean isEnablePassword() {
+    return enablePassword;
+  }
 
-    public boolean isDynamicallyScalable() {
-        return dynamicallyScalable;
-    }
+  public boolean isDynamicallyScalable() {
+    return dynamicallyScalable;
+  }
 
-    public long getGuestOSId() {
-        return guestOSId;
-    }
+  public long getGuestOSId() {
+    return guestOSId;
+  }
 
-    public String getGuestOSUuid() {
-        return guestOSUuid;
-    }
+  public String getGuestOSUuid() {
+    return guestOSUuid;
+  }
 
-    public String getGuestOSName() {
-        return guestOSName;
-    }
+  public String getGuestOSName() {
+    return guestOSName;
+  }
 
-    public boolean isBootable() {
-        return bootable;
-    }
+  public boolean isBootable() {
+    return bootable;
+  }
 
-    public boolean isPrepopulate() {
-        return prepopulate;
-    }
+  public boolean isPrepopulate() {
+    return prepopulate;
+  }
 
-    public boolean isCrossZones() {
-        return crossZones;
-    }
+  public boolean isCrossZones() {
+    return crossZones;
+  }
 
-    public HypervisorType getHypervisorType() {
-        return hypervisorType;
-    }
+  public HypervisorType getHypervisorType() {
+    return hypervisorType;
+  }
 
-    public Long getSourceTemplateId() {
-        return sourceTemplateId;
-    }
+  public Long getSourceTemplateId() {
+    return sourceTemplateId;
+  }
 
-    public String getSourceTemplateUuid() {
-        return sourceTemplateUuid;
-    }
+  public String getSourceTemplateUuid() {
+    return sourceTemplateUuid;
+  }
 
-    public String getTemplateTag() {
-        return templateTag;
-    }
+  public String getTemplateTag() {
+    return templateTag;
+  }
 
-    public int getSortKey() {
-        return sortKey;
-    }
+  public int getSortKey() {
+    return sortKey;
+  }
 
-    public boolean isEnableSshKey() {
-        return enableSshKey;
-    }
+  public boolean isEnableSshKey() {
+    return enableSshKey;
+  }
 
-    public Status getDownloadState() {
-        return downloadState;
-    }
+  public Status getDownloadState() {
+    return downloadState;
+  }
 
-    public long getSize() {
-        return size;
-    }
+  public long getSize() {
+    return size;
+  }
 
-    public boolean isDestroyed() {
-        return destroyed;
-    }
+  public boolean isDestroyed() {
+    return destroyed;
+  }
 
-    public Long getSharedAccountId() {
-        return sharedAccountId;
-    }
+  public Long getSharedAccountId() {
+    return sharedAccountId;
+  }
 
-    public String getDetailName() {
-        return detailName;
-    }
+  public String getDetailName() {
+    return detailName;
+  }
 
-    public String getDetailValue() {
-        return detailValue;
-    }
+  public String getDetailValue() {
+    return detailValue;
+  }
 
-    public Date getCreatedOnStore() {
-        return createdOnStore;
-    }
+  public Date getCreatedOnStore() {
+    return createdOnStore;
+  }
 
-    public Storage.ImageFormat getFormat() {
-        return format;
-    }
+  public Storage.ImageFormat getFormat() {
+    return format;
+  }
 
-    public int getDownloadPercent() {
-        return downloadPercent;
-    }
+  public int getDownloadPercent() {
+    return downloadPercent;
+  }
 
-    public String getErrorString() {
-        return errorString;
-    }
+  public String getErrorString() {
+    return errorString;
+  }
 
-    public Long getDataStoreId() {
-        return dataStoreId;
-    }
+  public Long getDataStoreId() {
+    return dataStoreId;
+  }
 
-    public ObjectInDataStoreStateMachine.State getState() {
-        return state;
-    }
+  public ObjectInDataStoreStateMachine.State getState() {
+    return state;
+  }
 
-    public ScopeType getDataStoreScope() {
-        return dataStoreScope;
-    }
+  public ScopeType getDataStoreScope() {
+    return dataStoreScope;
+  }
 
-    public String getTempZonePair() {
-        return tempZonePair;
-    }
+  public String getTempZonePair() {
+    return tempZonePair;
+  }
 
-    public State getTemplateState() {
-        return templateState;
-    }
+  public State getTemplateState() {
+    return templateState;
+  }
 
-    @Override
-    public Class<?> getEntityType() {
-        return VirtualMachineTemplate.class;
-    }
+  @Override
+  public Class<?> getEntityType() {
+    return VirtualMachineTemplate.class;
+  }
 }

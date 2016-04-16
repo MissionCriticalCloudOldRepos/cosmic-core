@@ -42,7 +42,6 @@
   <bean id="clusterManagerImpl" class="com.cloud.cluster.ClusterManagerImpl" />
   <bean id="clusteredVirtualMachineManagerImpl" class="com.cloud.vm.ClusteredVirtualMachineManagerImpl" />
   <bean id="highAvailabilityManagerExtImpl" class="com.cloud.ha.HighAvailabilityManagerExtImpl" />
-  <bean id="bareMetalVmManagerImpl" class="com.cloud.baremetal.BareMetalVmManagerImpl" />
   <bean id="consoleProxyManagerImpl" class="com.cloud.consoleproxy.ConsoleProxyManagerImpl" />
   <bean id="securityGroupManagerImpl2" class="com.cloud.network.security.SecurityGroupManagerImpl2" />
   <bean id="premiumSecondaryStorageManagerImpl" class="com.cloud.secstorage.PremiumSecondaryStorageManagerImpl" />
@@ -121,20 +120,11 @@
     <property name="name" value="KVM Agent"/>
   </bean>
 
-  <bean id="BareMetalDiscoverer" class="com.cloud.baremetal.BareMetalDiscoverer">
-    <property name="name" value="Bare Metal Agent"/>
-  </bean>
-
   <bean id="FirstFitPlanner" class="com.cloud.deploy.FirstFitPlanner">
     <property name="name" value="First Fit"/>
   </bean>
 
 
-  <bean id="BareMetalPlanner" class="com.cloud.deploy.BareMetalPlanner">
-    <property name="name" value="BareMetal Fit"/>
-  </bean>
-    
-   
   <!--
     Network Gurus
   -->
@@ -176,10 +166,6 @@
     <property name="name" value="KVMGuru"/>
   </bean>
   
-  <bean id="BareMetalGuru" class="com.cloud.baremetal.BareMetalGuru">
-    <property name="name" value="BareMetalGuru"/>
-  </bean>
-
   <!--
     DAO with customized configuration
   -->

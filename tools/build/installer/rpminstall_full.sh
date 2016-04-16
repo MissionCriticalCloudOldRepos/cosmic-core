@@ -64,8 +64,6 @@ installms="    M) Install the Management Server
 "
 installag="    A) Install the Agent
 "
-installbm="    B) Install BareMetal Agent
-"
 installus="    S) Install the Usage Monitor
 "
 installdb="    D) Install the database server     
@@ -76,7 +74,7 @@ unset removedb
 unset upgrade
 unset remove
 
-if installed cloud-client || installed cloud-agent || installed cloud-usage || installed cloud-baremetal-agent; then
+if installed cloud-client || installed cloud-agent || installed cloud-usage; then
     upgrade="    U) Upgrade the CloudStack packages installed on this computer
 "
     remove="    R) Stop any running CloudStack services and remove the CloudStack packages from this computer
@@ -87,9 +85,6 @@ if installed cloud-client ; then
 fi
 if installed cloud-agent ; then
     unset installag
-fi
-if installed cloud-baremetal-agent ; then
-    unset installbm
 fi
 if installed cloud-usage ; then
     unset installus
@@ -124,10 +119,6 @@ elif [ "$installtype" == "a" -o "$installtype" == "A" ] ; then
     else
         true
     fi
-elif [ "$installtype" == "b" -o "$installtype" == "B" ] ; then
-    echo "Installing the BareMetal Agent..." >&2
-    doinstall cloud-baremetal-agent
-    true
 
 elif [ "$installtype" == "s" -o "$installtype" == "S" ] ; then
 

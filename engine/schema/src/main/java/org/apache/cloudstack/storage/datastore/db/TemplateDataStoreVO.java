@@ -54,7 +54,7 @@ public class TemplateDataStoreVO implements StateObject<ObjectInDataStoreStateMa
     Long id;
 
     @Column(name = "store_id")
-    private Long dataStoreId; // this can be null for baremetal templates
+    private Long dataStoreId;
 
     @Column(name = "template_id")
     private long templateId;

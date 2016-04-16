@@ -214,7 +214,6 @@ import com.cloud.storage.Storage.ImageFormat;
 import com.cloud.storage.Storage.TemplateType;
 import com.cloud.storage.StorageManager;
 import com.cloud.storage.StoragePool;
-import com.cloud.storage.StoragePoolStatus;
 import com.cloud.storage.VMTemplateVO;
 import com.cloud.storage.VMTemplateZoneVO;
 import com.cloud.storage.Volume;
@@ -3064,7 +3063,6 @@ public class UserVmManagerImpl extends ManagerBase implements UserVmManager, Vir
     }
     // check if account/domain is with in resource limits to create a new vm
     final boolean isIso = Storage.ImageFormat.ISO == template.getFormat();
-    // For baremetal, size can be null
     final Long tmp = _templateDao.findById(template.getId()).getSize();
     long size = 0;
     if (tmp != null) {
@@ -3151,14 +3149,6 @@ public class UserVmManagerImpl extends ManagerBase implements UserVmManager, Vir
         throw new InvalidParameterValueException("Hypervisor passed to the deployVm call, is different from the hypervisor type of the template");
       }
       hypervisorType = template.getHypervisorType();
-    }
-
-    if (hypervisorType != HypervisorType.BareMetal) {
-      // check if we have available pools for vm deployment
-      final long availablePools = _storagePoolDao.countPoolsByStatus(StoragePoolStatus.Up);
-      if (availablePools < 1) {
-        throw new StorageUnavailableException("There are no available pools in the UP state for vm deployment", -1);
-      }
     }
 
     if (template.getTemplateType().equals(TemplateType.SYSTEM)) {

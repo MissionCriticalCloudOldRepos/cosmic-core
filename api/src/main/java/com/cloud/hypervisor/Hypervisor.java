@@ -26,7 +26,6 @@ public class Hypervisor {
     KVM,
     VirtualBox,
     Parralels,
-    BareMetal,
     Simulator,
     Ovm3,
 
@@ -44,8 +43,6 @@ public class Hypervisor {
         return HypervisorType.VirtualBox;
       } else if (hypervisor.equalsIgnoreCase("Parralels")) {
         return HypervisorType.Parralels;
-      } else if (hypervisor.equalsIgnoreCase("BareMetal")) {
-        return HypervisorType.BareMetal;
       } else if (hypervisor.equalsIgnoreCase("Simulator")) {
         return HypervisorType.Simulator;
       } else if (hypervisor.equalsIgnoreCase("Any")) {

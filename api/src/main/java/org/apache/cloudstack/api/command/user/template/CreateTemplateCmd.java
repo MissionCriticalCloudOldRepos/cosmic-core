@@ -29,7 +29,6 @@ import org.apache.cloudstack.api.response.GuestOSResponse;
 import org.apache.cloudstack.api.response.ProjectResponse;
 import org.apache.cloudstack.api.response.SnapshotResponse;
 import org.apache.cloudstack.api.response.TemplateResponse;
-import org.apache.cloudstack.api.response.UserVmResponse;
 import org.apache.cloudstack.api.response.VolumeResponse;
 import org.apache.cloudstack.context.CallContext;
 import org.apache.log4j.Logger;
@@ -105,15 +104,6 @@ public class CreateTemplateCmd extends BaseAsyncCreateCmd {
       description = "the ID of the disk volume the template is being created from. Either this parameter, or snapshotId has to be passed in")
   protected Long volumeId;
 
-  @Parameter(name=ApiConstants.VIRTUAL_MACHINE_ID, type=CommandType.UUID, entityType = UserVmResponse.class,
-      description="Optional, VM ID. If this presents, it is going to create a baremetal template for VM this ID refers to. This is only for VM whose hypervisor type is BareMetal")
-  protected Long vmId;
-
-  @Parameter(name = ApiConstants.URL,
-      type = CommandType.STRING,
-      description = "Optional, only for baremetal hypervisor. The directory name where template stored on CIFS server")
-  private String url;
-
   @Parameter(name = ApiConstants.TEMPLATE_TAG, type = CommandType.STRING, description = "the tag for this template.")
   private String templateTag;
 
@@ -170,14 +160,6 @@ public class CreateTemplateCmd extends BaseAsyncCreateCmd {
 
   public Long getVolumeId() {
     return volumeId;
-  }
-
-  public Long getVmId() {
-    return vmId;
-  }
-
-  public String getUrl() {
-    return url;
   }
 
   public String getTemplateTag() {
@@ -269,10 +251,6 @@ public class CreateTemplateCmd extends BaseAsyncCreateCmd {
     return ApiCommandJobType.Template;
   }
 
-  protected boolean isBareMetal() {
-    return getVmId() != null && getUrl() != null;
-  }
-
   @Override
   public void create() throws ResourceAllocationException {
     VirtualMachineTemplate template = null;
@@ -295,12 +273,7 @@ public class CreateTemplateCmd extends BaseAsyncCreateCmd {
     template = _templateService.createPrivateTemplate(this);
 
     if (template != null) {
-      List<TemplateResponse> templateResponses;
-      if (isBareMetal()) {
-        templateResponses = _responseGenerator.createTemplateResponses(ResponseView.Restricted, template.getId(), vmId);
-      } else {
-        templateResponses = _responseGenerator.createTemplateResponses(ResponseView.Restricted, template.getId(), snapshotId, volumeId, false);
-      }
+      final List<TemplateResponse> templateResponses = _responseGenerator.createTemplateResponses(ResponseView.Restricted, template.getId(), snapshotId, volumeId, false);
       TemplateResponse response = new TemplateResponse();
       if (templateResponses != null && !templateResponses.isEmpty()) {
         response = templateResponses.get(0);

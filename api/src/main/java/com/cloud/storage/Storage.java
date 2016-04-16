@@ -28,9 +28,6 @@ public class Storage {
     VHD(true, true, true, "vhd"),
     ISO(false, false, false, "iso"),
     OVA(true, true, true, "ova"),
-    VHDX(true, true, true, "vhdx"),
-    BAREMETAL(false, false, false, "BAREMETAL"),
-    VMDK(true, true, false, "vmdk"),
     VDI(true, true, false, "vdi"),
     TAR(false, false, false, "tar"),
     DIR(false, false, false, "dir");

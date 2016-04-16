@@ -166,7 +166,6 @@ known_categories = {
     'PortableIp': 'Portable IP',
     'dedicateHost': 'Dedicate Resources',
     'releaseDedicatedHost': 'Dedicate Resources',
-    'Baremetal' : 'Baremetal',
     'CacheStores' : 'Cache Stores',
     'CacheStore' : 'Cache Store',
     'IAM' : 'IAM',

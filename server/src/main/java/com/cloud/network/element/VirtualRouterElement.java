@@ -47,7 +47,6 @@ import com.cloud.exception.InsufficientCapacityException;
 import com.cloud.exception.InvalidParameterValueException;
 import com.cloud.exception.ResourceUnavailableException;
 import com.cloud.host.dao.HostDao;
-import com.cloud.hypervisor.Hypervisor.HypervisorType;
 import com.cloud.network.Network;
 import com.cloud.network.Network.Capability;
 import com.cloud.network.Network.Provider;
@@ -222,7 +221,7 @@ NetworkMigrationResponder, AggregatedCommandExecutor {
   public boolean prepare(final Network network, final NicProfile nic, final VirtualMachineProfile vm, final DeployDestination dest, final ReservationContext context)
       throws ConcurrentOperationException, InsufficientCapacityException, ResourceUnavailableException, IllegalVirtualMachineException {
 
-    if (vm.getType() != VirtualMachine.Type.User || vm.getHypervisorType() == HypervisorType.BareMetal) {
+    if (vm.getType() != VirtualMachine.Type.User) {
       throw new IllegalVirtualMachineException("Illegal VM type informed. Excpeted USER VM, but got -> " + vm.getType());
     }
 

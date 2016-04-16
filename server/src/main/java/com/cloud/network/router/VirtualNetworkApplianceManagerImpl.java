@@ -22,7 +22,6 @@ import org.apache.cloudstack.alert.AlertService.AlertType;
 import org.apache.cloudstack.api.command.admin.router.RebootRouterCmd;
 import org.apache.cloudstack.api.command.admin.router.UpgradeRouterCmd;
 import org.apache.cloudstack.api.command.admin.router.UpgradeRouterTemplateCmd;
-import org.apache.cloudstack.config.ApiServiceConfiguration;
 import org.apache.cloudstack.context.CallContext;
 import org.apache.cloudstack.engine.orchestration.service.NetworkOrchestrationService;
 import org.apache.cloudstack.framework.config.ConfigDepot;
@@ -211,8 +210,6 @@ import com.cloud.utils.db.DB;
 import com.cloud.utils.db.EntityManager;
 import com.cloud.utils.db.Filter;
 import com.cloud.utils.db.GlobalLock;
-import com.cloud.utils.db.QueryBuilder;
-import com.cloud.utils.db.SearchCriteria;
 import com.cloud.utils.db.Transaction;
 import com.cloud.utils.db.TransactionCallbackNoReturn;
 import com.cloud.utils.db.TransactionStatus;
@@ -1477,21 +1474,6 @@ Configurable, StateListener<VirtualMachine.State, VirtualMachine.Event, VirtualM
 
       if (useExtDns) {
         buf.append(" useextdns=true");
-      }
-    }
-
-    if (Boolean.valueOf(_configDao.getValue(Config.BaremetalProvisionDoneNotificationEnabled.key()))) {
-      final QueryBuilder<UserVO> acntq = QueryBuilder.create(UserVO.class);
-      acntq.and(acntq.entity().getUsername(), SearchCriteria.Op.EQ, "baremetal-system-account");
-      final UserVO user = acntq.find();
-      if (user == null) {
-        s_logger.warn(String
-            .format("global setting[baremetal.provision.done.notification] is enabled but user baremetal-system-account is not found. Baremetal provision done notification will not be enabled"));
-      } else {
-        buf.append(String.format(" baremetalnotificationsecuritykey=%s", user.getSecretKey()));
-        buf.append(String.format(" baremetalnotificationapikey=%s", user.getApiKey()));
-        buf.append(" host=").append(ApiServiceConfiguration.ManagementHostIPAdr.value());
-        buf.append(" port=").append(_configDao.getValue(Config.BaremetalProvisionDoneNotificationPort.key()));
       }
     }
 

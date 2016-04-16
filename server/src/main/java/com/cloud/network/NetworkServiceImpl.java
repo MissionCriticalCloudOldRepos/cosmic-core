@@ -2559,9 +2559,6 @@ public class NetworkServiceImpl extends ManagerBase implements  NetworkService {
           // add VPCVirtualRouter as the defualt network service provider
           addDefaultVpcVirtualRouterToPhysicalNetwork(pNetwork.getId());
 
-          // add baremetal as the defualt network service provider
-          addDefaultBaremetalProvidersToPhysicalNetwork(pNetwork.getId());
-
           //Add Internal Load Balancer element as a default network service provider
           addDefaultInternalLbProviderToPhysicalNetwork(pNetwork.getId());
 
@@ -3832,28 +3829,6 @@ public class NetworkServiceImpl extends ManagerBase implements  NetworkService {
     final PhysicalNetworkServiceProvider nsp = addProviderToPhysicalNetwork(physicalNetworkId, Network.Provider.SecurityGroupProvider.getName(), null, null);
 
     return nsp;
-  }
-
-  private PhysicalNetworkServiceProvider addDefaultBaremetalProvidersToPhysicalNetwork(long physicalNetworkId) {
-    final PhysicalNetworkVO pvo = _physicalNetworkDao.findById(physicalNetworkId);
-    final DataCenterVO dvo = _dcDao.findById(pvo.getDataCenterId());
-    if (dvo.getNetworkType() == NetworkType.Basic) {
-
-      final Provider provider = Network.Provider.getProvider("BaremetalDhcpProvider");
-      if (provider == null) {
-        // baremetal is not loaded
-        return null;
-      }
-
-      addProviderToPhysicalNetwork(physicalNetworkId, "BaremetalDhcpProvider", null, null);
-      addProviderToPhysicalNetwork(physicalNetworkId, "BaremetalPxeProvider", null, null);
-      addProviderToPhysicalNetwork(physicalNetworkId, "BaremetalUserdataProvider", null, null);
-    } else if (dvo.getNetworkType() == NetworkType.Advanced) {
-      addProviderToPhysicalNetwork(physicalNetworkId, "BaremetalPxeProvider", null, null);
-      enableBaremetalProvider("BaremetalPxeProvider");
-    }
-
-    return null;
   }
 
   private void enableBaremetalProvider(String providerName) {
