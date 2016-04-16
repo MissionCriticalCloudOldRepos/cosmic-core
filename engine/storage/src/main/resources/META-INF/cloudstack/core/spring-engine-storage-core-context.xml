@@ -32,7 +32,6 @@
     <bean id="OVA" class="org.apache.cloudstack.storage.image.format.OVA" />
     <bean id="QCOW2" class="org.apache.cloudstack.storage.image.format.QCOW2" />
     <bean id="VHD" class="org.apache.cloudstack.storage.image.format.VHD" />
-    <bean id="VHDX" class="org.apache.cloudstack.storage.image.format.VHDX" />
     <bean id="unknown" class="org.apache.cloudstack.storage.image.format.Unknown" />
     
     <bean id="hypervisorHelperImpl" class="org.apache.cloudstack.storage.helper.HypervisorHelperImpl" />
