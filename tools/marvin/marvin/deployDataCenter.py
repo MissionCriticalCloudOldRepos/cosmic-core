@@ -25,12 +25,14 @@ class DeleteDataCenters: Deletes a DataCenter based upon the dc cfg
                          configuration from DeployDataCenters post
                          its success
 """
-from marvin import configGenerator
-from marvin.cloudstackException import InvalidParameterException
-from marvin.cloudstackAPI import *
-from marvin.codes import (FAILED, SUCCESS)
-from marvin.lib.utils import (random_gen)
-from marvin.config.test_data import test_data
+import configGenerator
+from marvinLog import MarvinLog
+from cloudstackException import InvalidParameterException
+from codes import (FAILED, SUCCESS)
+from lib.utils import random_gen
+from config.test_data import test_data
+from cloudstackAPI import *
+
 from sys import exit
 import os
 import pickle
