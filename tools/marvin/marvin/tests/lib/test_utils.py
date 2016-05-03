@@ -4,6 +4,7 @@ class MockObject(object):
         self.state = state
         self.resourcestate = state
 
+
 class MockApiClient(object):
 
     def __init__(self, retries=1, initial_state='initial', final_state='final'):
