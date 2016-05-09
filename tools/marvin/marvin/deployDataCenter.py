@@ -423,7 +423,7 @@ class DeployDataCenters(object):
                     if provider.devices is not None:
                         for device in provider.devices:
                             if provider.name == 'NiciraNvp':
-                                cmd =  addNiciraNvpDevice.addNiciraNvpDeviceCmd()
+                                cmd = addNiciraNvpDevice.addNiciraNvpDeviceCmd()
                                 cmd.hostname = device.hostname
                                 cmd.username = device.username
                                 cmd.password = device.password
@@ -536,7 +536,7 @@ class DeployDataCenters(object):
                     if len(filter(lambda x: x.typ == 'Public', zone.physical_networks[0].traffictypes)) > 0:
                         listnetworkoffering.name = "DefaultSharedNetscalerEIPandELBNetworkOffering"
                     else:
-                         listnetworkoffering.name = "DefaultSharedNetworkOfferingWithSGService"
+                        listnetworkoffering.name = "DefaultSharedNetworkOfferingWithSGService"
                     if zone.networkofferingname is not None:
                         listnetworkoffering.name = zone.networkofferingname
                     listnetworkofferingresponse = self.__apiClient.listNetworkOfferings(listnetworkoffering)
