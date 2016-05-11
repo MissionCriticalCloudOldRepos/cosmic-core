@@ -653,7 +653,7 @@ class TestPrivateGwACL(cloudstackTestCase):
     def check_pvt_gw_connectivity(self, virtual_machine, public_ip, vms_ips):
 
         result = self.check_default_route()
-        assertEqual(result.count("default eth1"), 1, "Default routes should be setup in the router.")
+        self.assertEqual(result.count("default eth1"), 1, "Default routes should be setup in the router.")
 
         for vm_ip in vms_ips:
             ssh_command = "ping -c 3 %s" % vm_ip
