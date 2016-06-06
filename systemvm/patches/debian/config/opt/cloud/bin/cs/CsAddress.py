@@ -15,14 +15,13 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-from CsDatabag import CsDataBag
-from CsApp import CsApache, CsDnsmasq, CsPasswdSvc
 import logging
 from netaddr import IPAddress, IPNetwork
-import CsHelper
-
 import subprocess
 import time
+import CsHelper
+from CsDatabag import CsDataBag
+from CsApp import CsApache, CsDnsmasq, CsPasswdSvc
 from CsRoute import CsRoute
 from CsRule import CsRule
 
@@ -197,7 +196,7 @@ class CsInterface:
         return self.get_attr("add")
 
     def to_str(self):
-        print(self.address)
+        return self.address
 
 
 class CsDevice:
@@ -292,9 +291,10 @@ class CsIP:
 
             interfaces = [CsInterface(address, self.config)]
             CsHelper.reconfigure_interfaces(self.cl, interfaces)
-
             self.set_mark()
-            self.arpPing()
+
+            if 'gateway' in self.address:
+                self.arpPing()
 
             CsRpsrfs(self.dev).enable()
             self.post_config_change("add")
@@ -511,16 +511,19 @@ class CsIP:
         self.fw_vpcrouter()
 
         # On deletion nw_type will no longer be known
-        if self.get_type() in ["guest"] and self.config.is_vpc():
+        if self.get_type() in ('guest'):
+            if self.config.is_vpc() or self.config.is_router():
+                CsDevice(self.dev, self.config).configure_rp()
+                logging.error(
+                    "Not able to setup source-nat for a regular router yet")
 
-            CsDevice(self.dev, self.config).configure_rp()
+            if self.config.has_dns() or self.config.is_dhcp():
+                dns = CsDnsmasq(self)
+                dns.add_firewall_rules()
 
-            logging.error(
-                "Not able to setup source-nat for a regular router yet")
-            dns = CsDnsmasq(self)
-            dns.add_firewall_rules()
-            app = CsApache(self)
-            app.setup()
+            if self.config.has_metadata():
+                app = CsApache(self)
+                app.setup()
 
         cmdline = self.config.cmdline()
         # Start passwd server on non-redundant routers and on the master router of redundant pairs
@@ -686,3 +689,4 @@ class CsRpsrfs:
         if count < 2:
             logging.debug("Single CPU machine")
         return count
+
